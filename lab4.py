@@ -8,6 +8,8 @@ def main():
     log_file = get_log_file_path_from_cmd_line(1)
     records = filter_log_by_regex(log_file, 'SsHd', print_records=True)
     tally_port_traffic(log_file)
+    generate_invalid_user_report(log_file)
+
 
     
     pass
@@ -34,10 +36,18 @@ def generate_port_traffic_report(log_file, port_number):
 
 # TODO: Step 11
 def generate_invalid_user_report(log_file):
+
+    regex = r'(.{6}) (.{8}) .* Invalid user (.+) from (.+) '
+    data = filter_log_by_regex(log_file, regex)[1]
+
+    report_df = pd.DataFrame(data)
+    header_row = ('Date', 'Time', 'Source IP Address', 'Source Port', 'Destination Port')
+    report_df.to_csv(f'invalid_users.csv', index=False, header = header_row)
     return
 
 # TODO: Step 12
 def generate_source_ip_log(log_file, ip_address):
+
     return
 
 if __name__ == '__main__':

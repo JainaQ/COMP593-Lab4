@@ -20,7 +20,7 @@ def get_log_file_path_from_cmd_line(param_num):
     """
     num_params = len(sys.argv) - 1
     if num_params >= param_num:
-        log_file_path = sys.argv[[param_num]]
+        log_file_path = sys.argv[1]
         if os.path.isfile(log_file_path):
             return os.path.abspath(log_file_path)
         else:
